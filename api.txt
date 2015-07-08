@@ -1,0 +1,124 @@
+RESTful API
+
+Model: user → place ← company
+
+* Service provide four operations on places for user ‘create’, `read`, ‘delete’, ‘update’
+
+* Operation ‘create’ adds place to user’s places:
+	- input: a place object
+	- output: text informing that place was added to user supplemented with created place object
+
+* Operation `read` returns places of the user
+	- input: place id or nothing
+	- output: places objects
+
+* Operation ‘delete’ removes place from user’s places
+	- input: place id
+	- output: none
+
+* Operation ‘update’ updates place for user
+	- input: place id
+	- output: none
+
+* protocol is HTTP RESTful service running on c9.io
+
+### Resources:
+
+- /places is a container of all `places` for current user
+- /places/{place-id} is a place with id `place-id`
+- /users — is a container for all `users` in the system
+- /users/{user-id}/places is a container of all `places` of user with id `user-id`
+- /users/{user-id}/places/{place-id} is a place with id `place-id` of user with id `user-id`
+
+- /companies/{company-id} is a company with id `company-id`
+- /companies/{company-id}/places is a container of all `places` of company with id `company-id`
+- /companies/{company-id}/places/{place-id} is a place with id `place-id` of the company with id `company-id`
+
+### Structure
+
+- /places - list of all places
+- /places/{place-id} -  
+	- title — name of the place
+	- latitude - geographical latitude
+	- longitude - geographical longitude
+	- altitude - altitude 
+	- horizontalAccuracy - horizontal accuracy of position determination 
+	- verticalAccuracy - vertical accuracy of position determination
+	- date — date of creation 
+
+- /users — only for POST requests to crate new user
+	- id — unique id used for user’s Authorization 
+	
+- /users/{user-id}/places - list of all places
+
+### Resource representations
+- We define representation in JSON
+
+### To create new `user`
+
+POST to /users
+
+#### Possible status codes
+
+- 201 - created (user added to users collection)
+
+### To add `place` to user’s places
+
+POST to /users/{user-id}/places
+
+#### Possible status codes
+
+- 201 - created (place added to users places)
+- 400 - bad request (wrong data)
+- 409 - conflicted data
+- 401 - Unauthorized (wrong or absolute user credentials)
+
+### To update `place` with id place-id of user with id user-id
+
+PUT to /users/{user-id}/places/{place-id} 
+
+#### Possible status codes
+
+- 200 - ok (place information updated)
+- 201 - created (place created)
+- 400 - bad request (wrong data)
+- 409 - conflict (conflict of data)
+- 401 - Unauthorized (wrong or absolute user credentials)
+
+### To delete `place` with id place-id of user with id user-id
+
+DELETE to /users/{user-id}/places/{place-id}
+
+#### Possible status codes
+
+- 200 - ok (place removed from user’s places)
+- 400 - bad request (wrong data, place not found)
+- 401 - Unauthorized (wrong or absolute user credentials)
+
+### To retrieve `places` of user with id user-id with title `title`
+
+GET to /users/{user-id}/places/?title={title}
+
+#### Possible status codes
+
+- 200 - ok 
+- 400 - bad request (wrong data)
+- 404 - not found
+- 401 - Unauthorized (wrong or absolute user credentials)
+
+### To retrieve `place` with id place-id of user with id user-id
+
+GET to /users/{user-id}/places/{place-id}
+
+#### Possible status codes
+
+- 200 - ok 
+- 400 - bad request (wrong data)
+- 404 - not found
+- 401 - Unauthorized (wrong or absolute user credentials)
+
+
+
+
+
+
