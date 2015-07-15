@@ -1,8 +1,8 @@
 FORMAT: 1A
 HOST: http://46.101.171.216:8080
 
-# Loksfee
-Loksfee API is a service for managing your stored places. 
+# Places
+Places API is a service for managing your stored places. 
 
 Usual workflow(all iteractions should be TLS enabled):
 
